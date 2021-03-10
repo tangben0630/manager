@@ -1,0 +1,11 @@
+.content{
+  margin-top: 30px;
+  padding: 20px;
+  background-color: white;
+}
+.slide-img{
+  width: 180px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

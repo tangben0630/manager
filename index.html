@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const aaa = [ -3, 7, -4, 2,-2,0,5,1,-1]
+    // function find(nums) {
+    //   nums.sort()
+    //   const len = nums.length
+    //   const res= []
+    //   for (let i = 0; i < len - 2; i++) {
+    //     const n1 = nums[i]
+    //     if (n1 > 0) {
+    //       break
+    //     }
+    //     if (i-1 >= 0 && n1 === nums[i - 1]) {
+    //       continue
+    //     }
+    //     let left = i + 1
+    //     let right = nums.length - 1
+
+    //     while (left < right) {
+    //       const n2 = nums[left], n3 = nums[right]
+    //       const s = n1 + n2 + n3
+    //       if (s > 0) {
+    //         right--
+    //       } else if (s < 0) {
+    //         left++
+    //       } else {
+    //         res.push([n1 , n2 , n3])
+    //         while (left < right && nums[right] == n3) {
+    //           right--
+    //         }
+    //         while (left < right && nums[left] == n2) {
+    //           left++
+    //         }
+    //       }
+    //     }
+    //   }
+    //   return res
+    // }
+
+    function find(nums){
+      const len = nums.length
+      const res = []
+      nums.sort((a,b)=>a-b)
+
+      for(let i=0;i<len-2;i++){
+        const n1 = nums[i]
+        //设置左右指针
+        let left = i+1
+        let right = len-1
+        while(left < right){
+          const n2 = nums[left]
+          const n3 = nums[right]
+          const s = n1 + n2 + n3
+          if(s == 0){
+            res.push([n1,n2,n3])
+            while(left < right && n2 == nums[left]){
+              left ++
+            }
+            while(left < right && n3 == nums[right]){
+              right --
+            }
+          }else if(s>0){
+            right--
+          }else {
+            left ++
+          }
+        }
+      }
+      return res
+    }
+
+
+    // maxSubArray(nihao)
+    var largestRectangleArea = function(arr) {
+      const len = arr.length
+      let max = 0
+      let s = 0
+      for(let i=0;i<len;i++){
+        for(let t=i;t<len;t++){
+          let l = t-i + 1
+          let list = arr.slice(i, t+1)
+          let m = Math.min.apply(null, list)
+          if(max < m*l){
+            max =  m*l
+          }
+        }
+      }
+      return max
+    }
+    var isAnagram = function(s, t) {
+      if(s.length !== t.length){
+        return false
+      }
+      const len = s.length
+      const list1 = s.split('')
+      const list2 = t.split('')
+      const obj1 = {}
+      const obj2 = {}
+      for(let i=0;i<len;i++){
+        let key = list1[i]
+        if(obj1[key]){
+          obj1[key]  = obj1[key] + 1
+        }else {
+          obj1[key] = 1
+        }
+        let key2 = list2[i]
+        if(obj2[key2]){
+          obj2[key2]  = obj2[key2] + 1
+        }else {
+          obj2[key2] = 1
+        }
+      }
+      for(var key in obj1){
+        if(obj1[key] != obj2[key]){
+          return false
+        }
+      }
+      return true
+    };
+
+
+
+    var twoSum = function(nums, target) {
+      //存入的都是差值，遍历当前数组的值，被存入过，证明他是target与某一项的差值
+      const len = nums.length
+      const obj = {}
+      for(let i=0;i<len;i++){
+        //如果obj有当前这个key，
+        if(obj[target-nums[i]] || obj[target-nums[i]] === 0){
+          return [obj[target-nums[i]], i]
+        }else {
+          //如果obj没有当前的这个key，把差值当作key
+          obj[nums[i]]= i
+        }
+      }
+    };
+
+    const n = twoSum([2,7,11,15],9)
+    // console.log(n,'nn');
+
+    
+    //n2
+    function pow(x, y){
+      let s = 1
+      while(y){
+        y--
+        s *= x
+      }
+      return s
+    }
+    const v = pow(2,5)
+
+    function acc(n){
+      let res = []
+      const dfs = (left, right, str) =>{// 左右括号所剩的数量，str是当前构建的字符串
+        console.log(left,'left');
+        if(str.length === 2*n){// 字符串构建完成
+          res.push(str)// 加入解集
+          return // 结束当前递归分支
+        }
+        if(left > 0){ // 只要左括号有剩，就可以选它，然后继续做选择（递归
+          dfs(left-1, right, str+'(')
+        }
+        if(left < right){// 右括号比左括号剩的多，才能选右括号
+          dfs(left, right-1, str+')')// 然后继续做选择（递归）
+        }
+      }
+      dfs(n,n,'')// 递归的入口，剩余数量都是n，初始字符串是空串
+      return res
+    }
+    // const kuohao = acc(3)
+    
+    var removeDuplicates = function(nums) {
+      const obj = {num: 0}
+      for(let i=0;i<nums.length;i++){
+        if(obj[nums[i]]){
+          obj[nums[i]] = 1
+          nums[obj.num] = nums[i] 
+          obj.num++
+        }
+      }
+      nums.splice(obj.num, nums.length-1)
+      console.log(nums,'nums')
+      return nums
+    };
+    // const yy = removeDuplicates([0,0,1,1,1,2,2,3,3,4])
+    // console.log(yy,'yy');
+
+    var findMaxAverage1 = function(nums, k) {
+      let sum = 0;
+      for (let i = 0; i < k; i++) {sum += nums[i]}
+      let max = -Infinity
+      for (let i = k; i < nums.length; i++) {
+        sum = sum - nums[i-k] + nums[i]
+        if(max < sum){
+          max = sum
+        }
+      }
+      console.log(max,'------');
+      return max / k;
+    };
+    // findMaxAverage([3,3,4,3,0],3)
+
+      var findMaxAverage2 = function(nums, k) {
+        let sum = 0;
+        const n = nums.length;
+        for (let i = 0; i < k; i++) {
+            sum += nums[i];
+        }
+        let maxSum = sum;
+        for (let i = k; i < n; i++) {
+            sum = sum - nums[i - k] + nums[i];
+            maxSum = Math.max(maxSum, sum);
+        }
+        return maxSum / k;
+    };
+    // findMaxAverage1([1,12,-5,-6,50,3],4)
+
+    var isAnagram = function(s, t) {
+      const arr1 = s.split('')
+      const arr2 = t.split('')
+      const s1 = arr1.sort()
+      console.log(s1,'-----');
+      const s2 = arr2.reduce((a,b)=>a-b).join()
+      return s1 === s2
+    };
+
+    function he(arr, t){
+      const obj = {}
+      const len = arr.length;
+      for(let i=0;i<len;i++){
+        if(obj[t-arr[i]] || obj[t-arr[i]] === 0){
+          return [i, obj[t-arr[i]]]
+        }else {
+          obj[arr[i]] = i
+        }
+      }
+    }
+
+    function padding(arr){
+      const len = arr.length
+      for(let i=0;i<len;i++){
+        const list = arr.slice(i, len)//找出新的数组
+        const min = Math.min.apply(null, list)//找出最小的value
+        let index = i
+        for(let k=i;k<len-i;k++){//找出最小的那个 index
+          if(min == arr[k]){
+            index = k
+          }
+        }
+        arr[index] = arr[i]//当前最左边的那个元素，赋值为最小的，
+        arr[i] = min
+      }
+    }
+
+    
+
+    function mao(arr){
+      const len = arr.length
+      for(let i=0;i<len;i++){
+        for(let k=0;k<len;k++){
+          if(i !== k){
+            if(arr[i] < arr[k]){
+              const val = arr[i]
+              arr[i] = arr[k]
+              arr[k] = val
+            }
+          }
+        }
+      }
+      console.log(arr,'arr=== maopao');
+    }
+    mao([2,5,3,17,8,-1,-5,9,9])
+    mao2([2,5,3,17,8,-1,-5,9,9])
+    xuan([2,5,3,17,8,-1,-5,9,9])
+    xuan2([2,5,3,17,8,-1,-5,9,9])
+    padding([2,5,3,17,8,-1,-5,9,9])
+
+    console.log(kuai([2,5,3,17,8,-1,-5,9,9]),'kuai');
+    console.log(kuai([2,5,3,17,8,-1,-5,9,9]),'kuai2');
+    function kuai(arr){
+      const len = arr.length
+      if(len < 2){
+        return arr
+      }
+      const minVlaue = arr[Math.floor(len / 2)]
+      arr.splice(Math.floor(len / 2), 1)
+      let left = []
+      let right = []
+      for(let i=0;i<arr.length;i++){
+        arr[i] > minVlaue ? right.push(arr[i]) : left.push(arr[i])
+      }
+      return kuai(left).concat([minVlaue], kuai(right))
+    }
+
+    function xuan(arr){
+      const len = arr.length
+      for(let i=0;i<len;i++){
+        const list = arr.slice(i, len)
+        const min = Math.min.apply(null, list)
+        let minIndex = i
+        for(let k=i;k<len;k++){
+          if(arr[k] == min){
+            minIndex = k
+          }
+        }
+        arr[minIndex] = arr[i]
+        arr[i] = min
+      }
+      console.log(arr,'xuan');
+    }
+
+    //归并排序：
+    //把长度为n的输入序列分成两个长度为n/2的子序列
+    //对这连个子序列分别采用归并排序
+
+
+    //二叉树：子节点只有两个，左右
+    //如果有子节点有环，称为图
+    //1，左子树上面的所有节点的值，都小于他的根节点的值
+    //2，右子树所有节点的值，都大于他的根节点的值
+    //3，
+    //
+    //
+    //
+    var inorderTraversal = function(root) {
+      let list = []
+      let stack = []
+      let node = root
+      while(stack.length || node) { 
+          if(node) {
+              stack.push(node)
+              node = node.left
+              continue
+          }
+          node = stack.pop()
+          list.push(node.val)
+          node = node.right
+      }
+      return list
+    };
+
+
+    //
+    function xuan2(arr){
+      const len = arr.length;
+      for(let i=0;i<len;i++){
+        const list = arr.slice(i, len)
+        const min = Math.min.apply(null, list)
+        let index = i
+        for(let k=i;k<len;k++){
+          if(min === arr[k]){
+            index = k
+          }
+        }
+        arr[index] = arr[i]
+        arr[i] = min
+      }
+      console.log(arr,'xuan2');
+    }
+    function mao2(arr){
+      const len = arr.length;
+      for(let i=0;i<len;i++){
+        for(let k=0;k<len;k++){
+          if(i !== k){
+            if(arr[i] < arr[k]){
+              const val = arr[i]
+              arr[i] = arr[k]
+              arr[k] = val
+            }
+          }
+        }
+      }
+      console.log(arr,'mao2');
+    }
+
+    function kuai2(arr){
+      const len = arr.length
+      if(len < 2){
+        return arr
+      }
+      const midIndex = Math.floor(len/2)
+      const midValue = arr[midIndex]
+      arr.splice(midIndex, 1)
+      let left= []
+      let right= []
+      for(let i=0;i<arr.length;i++){
+        if(arr[i] < midValue){
+          left.push(arr[i])
+        }else {
+          right.push(arr[i])
+        }
+      }
+      return kuai2(left).concat([midValue], kuai2(right))
+    }
+
+  </script>
+</body>
+</html>

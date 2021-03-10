@@ -1,0 +1,13 @@
+.app{
+  background: rgba(0,0,0,0.08);
+}
+.page-content{
+  width: 1230px;
+  margin: 0 auto;
+  min-height: 69vh;
+}
+.main-mean{
+  padding-left: 6% !important;
+  background-color: #1976d2 !important;
+  color: #f5f5f5 !important;
+}
