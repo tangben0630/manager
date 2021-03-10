@@ -6,6 +6,6 @@ interface Props {
 export const Detail: React.FC<RouteComponentProps<Props>> = (props) => {
 
   return <div>
-    detail页面 + {props.match.params.id}
+    detail页面 + {props.match.params.id},zheshiid
   </div>
 }
