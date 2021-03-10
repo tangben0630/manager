@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { useSelector } from '../../redux/hooks'
 import { useDispatch } from 'react-redux'
 interface Props {
-  change: Function
+  change?: Function
 }
 export const Header: React.FC<Props> = (props) => {
   const [la, setLa] = useState<string>()
