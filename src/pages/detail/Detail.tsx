@@ -31,8 +31,8 @@ export const Detail: React.FC<RouteComponentProps<MatchParams>> = (props) => {
     return <div>
       <Header></Header>
 
-      <div>
-        {data.departureCity}
+      <div className={styles['title']}>
+        {data.title}
       </div>
       <Footer></Footer>
     </div>
