@@ -1,33 +1,73 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { RootState } from '../../redux/store'
-import { addSignFn } from '../../redux/test/testActions'
-const mapStateToProps = (state: RootState) => {
-  return {
-    name: state.TestReducer.name,
-    age: state.TestReducer.age,
-  }
-}
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    nihao: () => {
-      dispatch(addSignFn())
-    }
-  }
-}
-type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
+import { Form, Input, Button, Checkbox } from 'antd';
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+const tailLayout = {
+  wrapperCol: {
+    offset: 10,
+    span: 16,
+  },
+};
 
-export class reg extends React.Component<Props> {
-  render() {
-    return <div>
-      zhuce页面 {this.props.name}
-      <button onClick={() => { this.props.nihao() }}>123</button>
-    </div>
-  }
-}
+export const Reg = () => {
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
 
-export const Reg = connect(mapStateToProps, mapDispatchToProps)(reg)
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
+  return (
+    <Form
+      {...layout}
+      name="basic"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+    >
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
 
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
 
+      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+
+      <Form.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};
