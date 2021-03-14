@@ -12,7 +12,6 @@ interface MatchParams {
 }
 export const Detail: React.FC<RouteComponentProps<MatchParams>> = (props) => {
   const { id } = useParams<MatchParams>()
-  console.log(id, '999', useParams());
 
   // const [loading, setLoading] = useState<boolean>(true)
   // const [prods, setProds] = useState<any>(null)

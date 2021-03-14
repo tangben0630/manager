@@ -1,4 +1,5 @@
 import { Form, Input, Button, Checkbox } from 'antd';
+import { useHistory } from 'react-router'
 import axios from 'axios'
 import styles from './reg.module.css'
 const layout = {
@@ -17,8 +18,23 @@ const tailLayout = {
 };
 
 export const Reg = () => {
+  const history = useHistory()
   const onFinish = async (values) => {
-    const res = await axios.post('http://123.56.149.216:8080/api/productCollections')
+    // console.log(values, 'values');
+
+    // const res = await axios.post('http://123.56.149.216:8080/auth/register', {
+    //   email: values.username,
+    //   password: values.password,
+    //   confirmPassword: true,
+    //   headers: {
+    //     'x-icode': '3D50B8E3B1DFC232'
+    //   }
+    // })
+    // console.log('===');
+    setTimeout(() => {
+      history.push('/login')
+    }, 500);
+
   };
 
   const onFinishFailed = (errorInfo) => {
