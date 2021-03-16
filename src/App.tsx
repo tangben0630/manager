@@ -1,17 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import { HomePage, Login, Reg, Detail } from './pages'
-import { Shop } from './pages/shoppingCart'
+import { HomePage, Login, Reg, Detail, Shop } from './pages'
 import { useSelector } from './redux/hooks'
 
 const PrivateRoute = ({ component, isLogin, ...rest }) => {
-  const routeComponent = (props): any => {
-    isLogin ? React.createElement(component, props) : <Redirect to={{ pathname: '/login ' }} />
-  }
-  return <Route render={routeComponent} {...rest}></Route>
-  if (0) {
+  console.log(isLogin, 'isLogin', component);
 
+  const routeComponent = (props): any => {
+    return isLogin ? React.createElement(component, props) : <Redirect to={{ pathname: '/login' }} />
   }
+  console.log(routeComponent, 'routeComponent');
+  return <Route render={routeComponent} {...rest}></Route>
 }
 function App() {
   return (

@@ -22,6 +22,9 @@ export const Header: React.FC<Props> = (props) => {
   const toReg = () => {
     history.push({ pathname: '/reg' })
   }
+  const toShop = () => {
+    history.push({ pathname: '/shoppingCart' })
+  }
   return <>
     <div className={styles['app-header']}>
       {/* top-header */}
@@ -39,6 +42,7 @@ export const Header: React.FC<Props> = (props) => {
           <Button.Group className={styles['btn-group']}>
             <Button onClick={() => { toLogin() }}>登录</Button>
             <Button onClick={() => { toReg() }}>注册</Button>
+            <Button onClick={() => { toShop() }}>购物车</Button>
           </Button.Group>
         </div>
       </div>
